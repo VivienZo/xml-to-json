@@ -1,0 +1,16 @@
+{
+    "indent_size": 4,
+    "indent_char": " ",
+    "css": {
+        "indent_size": 2
+    },
+
+    "beautify.onSave": true, // beautify HTML, CSS, JavaScript, and JSON on save
+
+    "beautify.onSaveIgnore": [
+        //don't beautify any file in any 'minified' directory, at any depth:
+        "**/minified/**", 
+        //don't minify any file that contains '.min.', '_min.', '-min.' in the filename (This is the default ignore setting):
+        "**/*+(.|_|-)min.*"
+    ]
+}

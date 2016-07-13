@@ -1,0 +1,23 @@
+{
+  "name": "xml-to-json",
+  "version": "1.0.0",
+  "description": "Desktop application that convert XML files to JSON files and vice versa",
+  "main": "app.js",
+  "author": {
+    "name": "vivien-zoonekynd",
+    "email": "vivien.zoonekynd@gmail.com"
+  },
+  "dependencies": {
+    "angular": "~1.5.7",
+    "angular-animate": "~1.5.7",
+    "angular-aria": "~1.5.7",
+    "angular-messages": "~1.5.7",
+    "angular-route": "~1.5.7",
+    "angular-translate": "~2.11.0",
+    "angular-material": "~1.0.9",
+    "angular-material-icons": "~1.6.0",
+    "angular-material-data-table": "~0.10.9",
+    "nedb": "~1.6.0",
+    "ng-file-upload": "~12.0.4"
+  }
+}

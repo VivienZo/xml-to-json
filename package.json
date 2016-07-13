@@ -1,0 +1,13 @@
+{
+  "name": "xml-to-json",
+  "version": "1.0.0",
+  "description": "Desktop application that convert XML files to JSON files and vice versa",
+  "main": "main.js",
+  "author": {
+    "name": "vivien-zoonekynd",
+    "email": "vivien.zoonekynd@gmail.com"
+  },
+  "dependencies": {
+    "folder-contents": "^1.1.0"
+  }
+}

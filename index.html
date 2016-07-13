@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+  <head>
+    <title>XML to JSON</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="Desktop application that convert XML files to JSON files and vice versa" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+    <!-- ===== Stylesheets files ===== -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:400,700,500" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" type="text/css" href="bower_components/angular-material/angular-material.min.css" />
+    <link rel="stylesheet" type="text/css" href="bower_components/angular-material-data-table/dist/md-data-table.min.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+  </head>
+
+  <body>
+    <ng-view></ng-view>
+
+    <!-- ===== Bower libraries ===== -->
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.min.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="bower_components/angular-translate/angular-translate.min.js"></script>
+    <script src="bower_components/angular-material/angular-material.min.js"></script>
+    <script src="bower_components/angular-material-icons/angular-material-icons.min.js"></script>
+    <script src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
+    <script src="bower_components/nedb/browser-version/out/nedb.min.js"></script>
+    <script src="bower_components/ng-file-upload/ng-file-upload-all.min.js"></script>
+
+    <!-- ===== No dependencies libraries ===== -->
+    <!-- provides XML to JSON (JavaScript Objects) and vice versa javascript conversion functions -->
+    <script src="assets/js/xml2json.js"></script>
+    <!-- javascript plugin to pretty-print or minify text in XML, JSON, CSS and SQL formats -->
+    <script src="assets/js/vkbeautify.js"></script>
+    <!-- ng-webworker creates dynamic webworkers so angular apps can be multi-threaded -->
+    <script src="assets/js/ng-webworker.min.js"></script>
+
+    <!-- ===== Angular app files ===== -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/list/listService.js"></script>
+    <script src="scripts/list/listController.js"></script>
+    <script src="scripts/config/configService.js"></script>
+  </body>
+
+</html>

@@ -1,0 +1,138 @@
+<div ng-controller="listController" class="vz-ctrl-wrapper vz-background-grey">
+
+    <!-- Title bar -->
+    <md-toolbar md-scroll-shrink class="md-primary vz-title-bar-row">
+        <div layout="row" class="vz-title-bar-row">
+            <div layout="column" class="vz-toolbar-brick"></div>
+            <div layout="column" flex></div>
+            <div layout="column" id="title" class="md-title md-flex vz-center-block">
+                XML to JSON
+            </div>
+            <div layout="column" flex></div>
+            <div layout="column" class="vz-settings-button">
+                <md-fab-speed-dial md-direction="left" md-open="isOpen" ng-mouseenter="isOpen=true" ng-mouseleave="isOpen=false" class="md-scale">
+                    <md-fab-trigger>
+                        <md-button aria-label="language" class="md-fab md-accent md-mini">
+                            <md-icon aria-label="menu">language</md-icon>
+                            <md-tooltip>{{'LANGUAGE' | translate}}</md-tooltip>
+                        </md-button>
+                    </md-fab-trigger>
+                    <md-fab-actions>
+                        <md-button aria-label="Français" class="md-fab md-raised md-mini" ng-click="setLang('fr')">
+                            <md-icon md-svg-src="assets/images/France.svg" aria-label="Français"></md-icon>
+                        </md-button>
+                        <md-button aria-label="English" class="md-fab md-raised md-mini" ng-click="setLang('en')">
+                            <md-icon md-svg-src="assets/images/United-Kingdom.svg" aria-label="English"></md-icon>
+                        </md-button>
+                    </md-fab-actions>
+                </md-fab-speed-dial>
+            </div>
+        </div>
+    </md-toolbar>
+
+    <!-- Loading bar -->
+    <md-progress-linear md-mode="indeterminate" class="md-warn" ng-class="{ 'vz-hide-loading': !loading }"></md-progress-linear>
+
+    <!-- Content of the page -->
+    <md-content flex layout-padding class="vz-background-grey vz-content-margin">
+
+        <md-card layout-padding layout-fill class="vz-convert-finished-card" ng-show="convertFinishedMessageCode">
+            <md-icon class="md-18 vz-border-click vz-cursor-hand vz-close-card" ng-click="convertFinishedMessageCode = ''">close</md-icon>
+            <div layout="row">
+                <span layout="column">
+                    <md-icon class="vz-check">check</md-icon>
+                </span>
+                <span layout="column">
+                    <p>{{convertFinishedMessageCode | translate}}</p>
+                </span>
+                <span layout="column" flex></span>
+                <span layout="column">
+                    <md-button ng-click="openOutputFolder()">
+                        <md-icon class="md-warn">folder_open</md-icon> {{'OPEN_OUTPUT_FOLDER' | translate}}
+                    </md-button>
+                </span>
+            </div>
+        </md-card>
+
+        <md-card layout-padding layout-fill ng-show="!convertFinished">
+
+            <div layout="row">
+                <p>{{'CARD_INSTRUCTION' | translate}}</p>
+            </div>
+
+            <div layout="row">
+                <div ng-hide="status === 'locked'" ngf-drop ngf-select ng-model="files" ng-class="{ 'mini': files.length }" class="pos-drop-box " ngf-drag-over-class="{accept:'dragover', reject:'dragreject', delay:100}" ngf-multiple="true" ngf-pattern="'!image/*,!audio/*,!video/*,!application/x-zip-compressed,!application/pdf,!application/x-msdownload'">
+                    <md-icon>file_upload</md-icon> {{'DROP_INSTRUCTION' | translate}}
+                </div>
+            </div>
+
+            <!-- Tableau avec les donnees issues de la BDD -->
+            <div ng-show="files.length" layout="row">
+                <div flex></div>
+                <md-table-container>
+                    <table md-table md-progress="deferred" class="md-primary">
+                        <thead md-head md-order="query.order">
+                            <tr md-row>
+                                <th ng-cloak md-column md-order-by="name">{{'TABLE_COLUMN_NAME' | translate}}</th>
+                                <th ng-cloak md-numeric md-column md-order-by="size">{{'TABLE_COLUMN_SIZE' | translate}}</th>
+                                <th ng-cloak md-column md-order-by="status">{{'TABLE_COLUMN_STATUS' | translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody md-body>
+                            <tr md-row ng-repeat="file in files | orderBy: query.order | limitTo: query.limit">
+                                <td md-cell ng-cloak>
+                                    <md-icon class="md-18">insert_drive_file</md-icon> {{file.name}}</td>
+                                <td md-cell ng-cloak>{{(file.size / 1000).toFixed(2)}} {{'KB' | translate}}</td>
+                                <td md-cell ng-cloak>
+                                    <md-progress-circular md-mode="indeterminate" ng-show="loading" class="md-hue-2" md-diameter="24px"></md-progress-circular>
+                                    <md-icon ng-show="!loading" class="md-24">done</md-icon>
+                                </td>
+                            </tr>
+                            <tr ng-show="query.limit && files.length > query.limit" md-row ng-click="query.limit = null" class="vz-border-click vz-cursor-hand">
+                                <td md-cell ng-cloak class="vz-material-blue">{{'TABLE_DISPLAY_ALL' | translate}}</td>
+                                <td md-cell ng-cloak></td>
+                                <td md-cell ng-cloak></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </md-table-container>
+                <div flex></div>
+            </div>
+
+            <div layout="row">
+                <!-- input for choosing the target directory of the converted files -->
+                <input type="file" webkitdirectory id="browse-directory" onchange="angular.element(this).scope().browseDirectory(this.files)" style="display:none" ng-disabled="loading" />
+                <md-button ng-mouseenter="inputHover=true" ng-mouseleave="inputHover=false" ng-class="{ 'md-primary': inputHover }" class="vz-folder-icon" aria-label="Change directory" ng-click="clickOnBrowseDirectory()" ng-disabled="loading">
+                    <md-icon class="md-18">folder</md-icon>
+                    <md-tooltip>{{'BROWSE_FOLDER' | translate}}</md-tooltip>
+                </md-button>
+                <md-input-container ng-click="browseOutputFolder()" ng-mouseenter="inputHover=true" ng-mouseleave="inputHover=false" class="vz-output-folder-container vz-border-click" flex>
+                    <label>{{'OUTPUT_FOLDER' | translate}}</label>
+                    <input ng-model="outputFolderPath" disabled />
+                </md-input-container>
+            </div>
+
+            <div layout="row">
+                <div layout="column">
+                    <!-- run the conversion : if (!valid) error toast else run conversion -->
+                    <md-button ng-click="convertFiles()" ng-disabled="loading" ng-class="(valid) ? 'md-primary' : 'md-accent'">
+                        <md-icon>send</md-icon> {{'RUN' | translate}}
+                    </md-button>
+                    <!-- TODO : ajouter un bouton pour annuler le travail en cours -->
+                </div>
+                <div layout="column" flex></div>
+                <div layout="column">
+                    <p ng-click="(loading) ? '' : minify = !minify" class="vz-cursor-hand vz-border-click">{{'MINIFY' | translate}}</p>
+                </div>
+                <div layout="column">
+                    <!-- minify the converted output files : not minified by default -->
+                    <p><md-checkbox class="vz-minify-checkbox" ng-model="minify" ng-disabled="loading"></md-checkbox></p>
+                </div>
+
+            </div>
+
+        </md-card>
+
+    </md-content>
+
+</div>
