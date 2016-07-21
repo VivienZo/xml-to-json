@@ -21,10 +21,7 @@ Desktop application that convert XML files to JSON files and vice versa.
 
 ## Resources
 
-Github Electron: http://electron.atom.io/
-
-Angular Material: https://material.angularjs.org/
-
-AngularJS: https://angularjs.org/
-
-Material Design: https://material.google.com/
+* Github Electron: http://electron.atom.io/
+* Angular Material: https://material.angularjs.org/
+* AngularJS: https://angularjs.org/
+* Material Design: https://material.google.com/
