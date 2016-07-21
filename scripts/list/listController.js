@@ -29,6 +29,7 @@
         // remove unauthorized files from the list to convert
         $scope.$watch('files', function(receivedFiles) {
             if (receivedFiles && receivedFiles.length) {
+                //we have to use a $timeout to modifie $scope variables into a watcher
                 $timeout(function() {
                     try {
                         $scope.loading = true;
@@ -62,7 +63,7 @@
                 });
             }
         });
-        //todo: listener pour minify pour enregistrer sa nouvelle valeur avec nedb après changement
+        //todo: listener to save the state of the minify button
         $scope.$watch('minify', function(newVal) {
             if (newVal) {
                 // TODO : call nedb to save the minify value
@@ -75,14 +76,14 @@
         * Exposed functions
         **/
 
-        // fonction simulant un clic sur le bouton de choix d'un dossier
+        // function which simulate a click event on the "browse directory" button
         $scope.clickOnBrowseDirectory = function () {
             $timeout(function () {
                 document.getElementById('browse-directory').click()
             });
         };
 
-        // fonction appelée lorsqu'un nouveau dossier est sélectionné par l'utilisateur
+        // function called when a new directory is selected by the user
         $scope.browseDirectory = function (data) {
             try {
                 if (data && data.length && data[0].name) {
@@ -96,7 +97,7 @@
             }
         };
 
-        // fonction qui permet à l'utilisateur de changer la langue de l'application (français ou anglais)
+        // function called when the user change the language of the app
         $scope.setLang = function (lang) {
             if (lang !== $scope.lang) {
                 $scope.lang = lang;
@@ -114,12 +115,10 @@
 
         // conversion function
         $scope.convertFiles = function () {
-            // console.log('convertFiles()',$scope.files);
             if ($scope.valid) {
                 $scope.loading = true;
                 return listService.convertFiles($scope.files, $scope.outputFolderPath, $scope.minify)
                     .then(function(response) {
-                        // console.log(response.message);
                         $scope.convertFinishedMessageCode = response.messageCode;
                         $scope.convertedFolderPath = $scope.outputFolderPath;
                         $scope.loading = false;
@@ -156,10 +155,10 @@
 
 
         /**
-         * Fonction permettant d'afficher une notification à l'utilisateur
-         * @param message: string contenant le message à afficher dans la notification
-         * @param _type: string facultative qui peut prendre comme valeur success-toast ou error-toast
-         * @param _delay: string facultative représentant le temps d'affichage de la notification à l'écran en ms
+         * Function which display a notification in the app
+         * @param message: string which contains the text to display in the notification
+         * @param _type: optional string which can be equals to success-toast or error-toast
+         * @param _delay: optional string which represents the time during when the notification will be displayed
          */
         function showErrorToast (message, _type, _delay) {
             let delay = 3000;

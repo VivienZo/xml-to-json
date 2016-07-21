@@ -61,12 +61,12 @@
             </div>
 
             <div layout="row">
-                <div ng-hide="status === 'locked'" ngf-drop ngf-select ng-model="files" ng-class="{ 'mini': files.length }" class="pos-drop-box " ngf-drag-over-class="{accept:'dragover', reject:'dragreject', delay:100}" ngf-multiple="true" ngf-pattern="'!image/*,!audio/*,!video/*,!application/x-zip-compressed,!application/pdf,!application/x-msdownload'">
+                <div ng-hide="status === 'locked'" ngf-drop ngf-select ng-model="files" ng-class="{ 'mini': files.length }" class="vz-drop-box " ngf-drag-over-class="{accept:'dragover', reject:'dragreject', delay:100}" ngf-multiple="true" ngf-pattern="'!image/*,!audio/*,!video/*,!application/x-zip-compressed,!application/pdf,!application/x-msdownload'">
                     <md-icon>file_upload</md-icon> {{'DROP_INSTRUCTION' | translate}}
                 </div>
             </div>
 
-            <!-- Tableau avec les donnees issues de la BDD -->
+            <!-- Table which contains the data of the selected files -->
             <div ng-show="files.length" layout="row">
                 <div flex></div>
                 <md-table-container>
@@ -118,7 +118,7 @@
                     <md-button ng-click="convertFiles()" ng-disabled="loading" ng-class="(valid) ? 'md-primary' : 'md-accent'">
                         <md-icon>send</md-icon> {{'RUN' | translate}}
                     </md-button>
-                    <!-- TODO : ajouter un bouton pour annuler le travail en cours -->
+                    <!-- TODO : add a cancel / reset button to abort a conversion / to reset the form -->
                 </div>
                 <div layout="column" flex></div>
                 <div layout="column">
