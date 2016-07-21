@@ -6,7 +6,7 @@ Desktop application that convert XML files to JSON files and vice versa.
 
 **Ready to use Windows x64 version.**
 
-* Download the portable app here: http://vivienzo.fr/
+* Download the portable app here: http://vivienzo.fr/releases/xml-to-json-windows-app.zip
 * Unzip the downloaded file
 * Double-click on *xml-to-json.exe* to launch the app
 
