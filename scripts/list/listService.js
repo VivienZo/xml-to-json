@@ -182,7 +182,7 @@
                     if (err) {
                         deferred.reject(err);
                     } else {
-                        let xmlText = '<?xml version="1.0" encoding="UTF-8" ?> ';
+                        let xmlText = '<?xml version="1.0" encoding="UTF-8"?> ';
                         xmlText += x2js.json2xml_str(JSON.parse(data));
                         let beautyXml = vkbeautify.xml(xmlText);
                         let miniXml = vkbeautify.xmlmin(xmlText);
