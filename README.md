@@ -19,6 +19,10 @@ Desktop application that convert XML files to JSON files and vice versa.
 * Execute Electron.app (Mac OS) or electron (Linux) to launch the app
 
 
+## License
+This software is provided free of charge and without restriction under the [GNU License](https://github.com/VivienZo/xml-to-json/blob/master/LICENSE).
+
+
 ## Resources
 
 * Github Electron: http://electron.atom.io/
